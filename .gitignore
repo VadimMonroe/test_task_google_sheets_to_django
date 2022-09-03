@@ -1,0 +1,6 @@
+.DS_Store
+venv/
+test_task/test_task/__pycache__
+test_task/sheets_app/__pycache__
+
+
