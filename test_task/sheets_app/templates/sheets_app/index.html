@@ -51,17 +51,6 @@
 
         </div>
     <div>
-
-    <div class="hidden">
-        {% for sheet in database %}
-                <p id="id">{{ sheet.id}}</p>
-                <p id="order_number"> {{ sheet.order_number }}</p>
-                <p id="cost">{{ sheet.cost }}</p>
-                <p id="delivery_time">{{ sheet.delivery_time }}</p>
-                <p id="cost_roubles">{{ sheet.cost_roubles }}</p>
-        {% endfor %}
-    <div>
-
     <script src="{% static 'sheets_app/script.js' %}"></script>
   </body>
 </html>

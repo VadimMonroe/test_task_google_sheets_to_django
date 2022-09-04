@@ -1,5 +1,5 @@
 from django.shortcuts import render
-# from .google.main import sheet, sheet_id
+from .google.main import sheet, sheet_id
 from .models import SheetInfo
 # import asyncio
 import threading
@@ -15,10 +15,14 @@ def write_to_base(data, number):
         if django_database.filter(id=data[0]):
             writeline = django_database.get(id=data[0]) if 0 < len(data) else django_database.filter(id=number)
             if [str(writeline.id), str(writeline.order_number), str(writeline.cost), writeline.delivery_time] != data:
-                
                 writeline.order_number = data[1] if 1 < len(data) else 0
                 writeline.cost = data[2] if 2 < len(data) else 0
                 writeline.delivery_time=data[3] if 3 < len(data) else '0'
+                writeline.cost_roubles = roubles_from_usd(writeline.cost)
+                writeline.save()
+            
+            if writeline.cost_roubles != roubles_from_usd(data[2]):
+                writeline.cost = data[2] if 2 < len(data) else 0
                 writeline.cost_roubles = roubles_from_usd(writeline.cost)
                 writeline.save()
         else:
@@ -39,13 +43,13 @@ def index(request):
     tasks =[]
     
     try:
-        # sheet_base = sheet.values().get(spreadsheetId=sheet_id, range="Лист1").execute()
-        # for number, data in enumerate(sheet_base['values'][1:], start=1):
-        sheet_base = ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022'], ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022']
-        for number, data in enumerate(sheet_base, start=1):
+        sheet_base = sheet.values().get(spreadsheetId=sheet_id, range="Лист1").execute()
+        for number, data in enumerate(sheet_base['values'][1:], start=1):
+        # sheet_base = ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022'], ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022']
+        # for number, data in enumerate(sheet_base, start=1):
 
             # asyncio.run(write_to_base(data, number))
-            task = threading.Thread(target=write_to_base, args=(data, number), daemon=True)
+            task = threading.Thread(target=write_to_base, args=(data, number), daemon=False)
             task.start()
             tasks.append(task)
     except Exception as e2:
@@ -56,12 +60,13 @@ def index(request):
     
     
     
-    django_database = SheetInfo.objects.all()
-    roubles_from_usd(22)
+    django_database = SheetInfo.objects.all().order_by('id')
+    
     return render(request, 'sheets_app/index.html', {'database': django_database})
 
 def roubles_from_usd(usd):
     response = requests.get('https://www.cbr.ru/scripts/XML_daily.asp')
     dom = BeautifulSoup(response.text, 'xml')
-    result = usd * float(dom.find(ID='R01235').Value.text.replace(',', '.'))
-    return result
+    usd = float(usd)
+    result = usd * float(dom.find(ID='R01235').Value.text.replace(',', '.')) if usd != 0 else 0
+    return int(result)

@@ -18,18 +18,6 @@
     padding-bottom: 5px;
 }
 
-/* #curve_chart {
-    padding-top: 2px;
-    padding-left: 2px;
-} */
-
-/* #myChart {
-    position: relative;
-    width: 10%;
-    height: 10%;
-} */
-
-
 .grid_container {
     display: grid;
     grid-template-columns: 50% 50%;

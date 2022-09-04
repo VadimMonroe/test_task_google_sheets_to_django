@@ -17,10 +17,10 @@ def get_service_sacc() -> object:
     creds_service = ServiceAccountCredentials.from_json_keyfile_name(creds_json, scopes).authorize(httplib2.Http())
     return build('sheets', 'v4', http=creds_service)
 
-# try:
-#     service = get_service_sacc()
-#     sheet = service.spreadsheets()
-# except Exception as e1:
-#     print('Error with service or sheet in main.py:', e1)
+try:
+    service = get_service_sacc()
+    sheet = service.spreadsheets()
+except Exception as e1:
+    print('Error with service or sheet in main.py:', e1)
     
 # resp = ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022']

@@ -43,7 +43,7 @@
 
 // const id = document.querySelectorAll('#id');
 // const order_number = document.querySelectorAll('#order_number');
-const cost = document.querySelectorAll('#cost');
+// const cost = document.querySelectorAll('#cost');
 const deliveryTime = document.querySelectorAll('#delivery_time');
 const costRoubles = document.querySelectorAll('#cost_roubles');
 const totalPrice = document.querySelector('.totalPriceH1');
@@ -53,13 +53,15 @@ let list_date = [];
 let totalPriceRoubles = 0;
 
 for (let i = 0; i < id.length; i++) {
-    list_cost.push(Number(cost[i].textContent));
+    roubles = Number(costRoubles[i].textContent);
+
+    list_cost.push(roubles);
     list_date.push(deliveryTime[i].textContent);
-    totalPriceRoubles += Number(costRoubles[i].textContent);
+
+    totalPriceRoubles += roubles;
 }
 
-console.log(totalPriceRoubles)
-totalPrice.text = totalPriceRoubles;
+totalPrice.textContent = totalPriceRoubles;
 
 const data = {
     labels: list_date,
