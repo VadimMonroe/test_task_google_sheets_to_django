@@ -1,3 +1,5 @@
+// ------------- google charts version (for browsers, which canvas don't working) -------------
+
 // const id = document.querySelectorAll('#id');
 // const order_number = document.querySelectorAll('#order_number');
 // const cost = document.querySelectorAll('#cost');
@@ -38,12 +40,8 @@
 // google.charts.setOnLoadCallback(drawChart);
 
 
+// ------------- canvas version -------------
 
-// -------------
-
-// const id = document.querySelectorAll('#id');
-// const order_number = document.querySelectorAll('#order_number');
-// const cost = document.querySelectorAll('#cost');
 const deliveryTime = document.querySelectorAll('#delivery_time');
 const costRoubles = document.querySelectorAll('#cost_roubles');
 const totalPrice = document.querySelector('.totalPriceH1');
@@ -74,6 +72,7 @@ const data = {
 };
 
 const ctx = document.getElementById('myChart').getContext('2d');
+
 // ctx.canvas.parentNode.style.width= '600px';
 // ctx.canvas.parentNode.style.height = '300px';
 

@@ -1,6 +1,6 @@
 .container {
     width: 90%;
-    height: 90%;
+    /* height: 600px; */
     margin: auto auto;
     border-width:1;
     border-color: rgb(190,190,190);
@@ -79,6 +79,7 @@
     color:white;
     text-align: center;
     font-family: verdana, arial, sans-serif;
+    font-size: 1.2vw;
 }
 
 .headingColumn-1 {
@@ -113,6 +114,7 @@
     width: 100%;
     height: 30px;
     text-align: center;
+    font-size: 1.5vw;
 }
 
 #id {

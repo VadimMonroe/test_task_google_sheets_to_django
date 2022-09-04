@@ -7,8 +7,7 @@ sheet_id = '1EqvGMD5mpAmT0psvIlfzw7fBDWnzyrHaxCX6fX9i2jE'
 
 def get_service_sacc() -> object:
     """
-    Могу читать и (возможно) писать в таблицы, которой выдан доступ для сервисного аккаунта приложения
-    :return:
+    Функция считывающая информацию с таблицы google sheets, которой выдан доступ для сервисного аккаунта приложения.
     """
     
     creds_json = os.path.dirname(__file__) + "/digital-heading-361313-6bab50b1bd17.json"
@@ -23,4 +22,3 @@ def get_service_sacc() -> object:
 # except Exception as e1:
 #     print('Error with service or sheet in main.py:', e1)
     
-# resp = ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022']
