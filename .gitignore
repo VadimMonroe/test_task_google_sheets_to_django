@@ -1,7 +1,0 @@
-.DS_Store
-venv/
-test_task/test_task/__pycache__
-test_task/sheets_app/__pycache__
-sheets_app/migrations/__pycache__
-sheets_app/google/__pycache__
-sheets_app/utils/__pycache__/

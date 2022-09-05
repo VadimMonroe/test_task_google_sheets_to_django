@@ -68,12 +68,12 @@ def asynchronous_database() -> None:
         try:
             
             for number, data in enumerate(sheet_base, start=1):
-                write_to_base(data, number)
-            #     tasks.append(threading.Thread(target=write_to_base, args=(data, number), daemon=False))
-            #     tasks[number-1].start()
+                # write_to_base(data, number)
+                tasks.append(threading.Thread(target=write_to_base, args=(data, number), daemon=False))
+                tasks[number-1].start()
                 
-            # [i.join() for i in tasks]
-            # tasks = []
+            [i.join() for i in tasks]
+            tasks = []
                 
         except Exception as e2:
             print('Cant read from sheet_base in views.py:', e2)
