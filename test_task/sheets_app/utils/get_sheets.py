@@ -13,12 +13,19 @@ def get_service_sacc() -> object:
     creds_json = os.path.dirname(__file__) + "/digital-heading-361313-6bab50b1bd17.json"
     scopes = ['https://www.googleapis.com/auth/spreadsheets']
 
-    creds_service = ServiceAccountCredentials.from_json_keyfile_name(creds_json, scopes).authorize(httplib2.Http())
+    try:
+        creds_service = ServiceAccountCredentials.from_json_keyfile_name(creds_json, scopes).authorize(httplib2.Http())
+    except Exception as e7:
+        print('Cant take sheets:', e7)
+        
     return build('sheets', 'v4', http=creds_service)
 
-# try:
-#     service = get_service_sacc()
-#     sheet = service.spreadsheets()
-# except Exception as e1:
-#     print('Error with service or sheet in main.py:', e1)
+sheet_base = []
+
+try:
+    service = get_service_sacc()
+    sheet = service.spreadsheets()
+except Exception as e1:
+    print('Error with service or sheet in main.py:', e1)
     
+sheet_base = sheet.values().get(spreadsheetId=sheet_id, range="Лист1").execute()['values'][1:]

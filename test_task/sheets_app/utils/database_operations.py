@@ -1,5 +1,7 @@
 from ..models import SheetInfo
 from ..utils.usd_to_rub import roubles_from_usd
+from .get_sheets import sheet_base
+import threading
 
 def write_to_base(data: list, number: int) -> None:
     """
@@ -41,3 +43,31 @@ def write_to_base(data: list, number: int) -> None:
             writeline.save()
         else:
             django_database.create(id=number, order_number=0, cost=0, delivery_time='0', cost_roubles=0)
+            
+# sheet_base = ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022'], ['1', '1249708', '675', '24.05.2022'], ['2', '1182407', '214', '13.05.2022']
+
+tasks = []
+sheet_base_old = None
+
+def asynchronous_database() -> None:
+    """
+    Функция для перебора ячеек базы данных асинхронно.
+    
+        Параметры:
+                    return (None) : Не возвращает ничего.
+    """
+    global tasks, sheet_base_old
+    
+    if sheet_base != sheet_base_old:
+        sheet_base_old = sheet_base
+        try:
+            
+            for number, data in enumerate(sheet_base, start=1):
+                tasks.append(threading.Thread(target=write_to_base, args=(data, number), daemon=False))
+                tasks[number-1].start()
+                
+            [i.join() for i in tasks]
+            tasks = []
+                
+        except Exception as e2:
+            print('Cant read from sheet_base in views.py:', e2)
