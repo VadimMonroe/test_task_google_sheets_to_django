@@ -1,6 +1,6 @@
 from ..models import SheetInfo
 from ..utils.usd_to_rub import roubles_from_usd
-from .get_sheets import sheet_base
+from .get_sheets import get_sheet_base
 import threading
 
 def write_to_base(data: list, number: int) -> None:
@@ -48,15 +48,20 @@ def write_to_base(data: list, number: int) -> None:
 
 tasks = []
 sheet_base_old = None
+restrictions_per_minute = 60
 
 def asynchronous_database() -> None:
     """
-    Функция для перебора ячеек базы данных асинхронно.
+    Функция для запроса обновления данных с google sheets. 
+    Если данные поменялись, обновляются в базе данных.
     
         Параметры:
                     return (None) : Не возвращает ничего.
     """
-    global tasks, sheet_base_old
+    global tasks, sheet_base_old, restrictions_per_minute
+    
+    
+    sheet_base = get_sheet_base()
     
     if sheet_base != sheet_base_old:
         sheet_base_old = sheet_base
