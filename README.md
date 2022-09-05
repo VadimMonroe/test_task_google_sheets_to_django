@@ -1,7 +1,9 @@
 <h1>Directions to Run</h1>
 
-docker build .
+1. git clone https://github.com/VadimMonroe/test_task_google_sheets_to_django.git
 
-docker images (take last image)
+2. docker build .
 
-docker run --publish 8000:8000 (paste id image)
+3. docker images (take last image)
+
+4. docker run --publish 8000:8000 (paste id image)
