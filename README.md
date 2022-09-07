@@ -1,3 +1,6 @@
+google sheets: https://docs.google.com/spreadsheets/d/1EqvGMD5mpAmT0psvIlfzw7fBDWnzyrHaxCX6fX9i2jE/edit#gid=0
+postgres cloud: https://railway.app
+
 <h1>Directions to Run</h1>
 
 1. git clone https://github.com/VadimMonroe/test_task_google_sheets_to_django.git
